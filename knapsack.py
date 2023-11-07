@@ -54,6 +54,8 @@ def ks_top_down(items, capacity):
     return sp[(len(items), capacity)]
 
 def ks_top_down2(items, i, capacity, sp):
+    if (i, capacity) in sp:
+        return sp
     if items[i - 1][0] > capacity:
         if not (i - 1, capacity) in sp:
             ks_top_down2(items, i - 1, capacity, sp)
@@ -66,6 +68,8 @@ def ks_top_down2(items, i, capacity, sp):
         sp[(i,capacity)] = max(sp[(i-1, capacity)], sp[(i-1, capacity-items[i-1][0])] + items[i-1][1])
 
 def main():
-    if __name__ == "__main__":
-        p = [(57, 1303), (70, 1487), (63, 1948), (52, 1716), (50, 1712), (68, 1752), (68, 1981), (69, 1042), (55, 1536), (68, 1280)]
-        print(ks_brute_force(p, 200))
+    p = [(57, 1303), (70, 1487), (63, 1948), (52, 1716), (50, 1712), (68, 1752), (68, 1981), (69, 1042), (55, 1536), (68, 1280)]
+    print(ks_top_down(p, 200))
+
+if __name__ == "__main__":
+    main()
