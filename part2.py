@@ -15,5 +15,18 @@ def num_of_wc_runs(n, m):
                     wc[i][j] = min
     return wc[m][n]
 
+def next_setting(n,m):
+    min_wc = num_of_wc_runs(n,m)
 
-print(num_of_wc_runs(100, 2))
+    setting = [[0 for j in range(min_wc+1)] for i in range(m+1)]
+    for i in range(len(setting)):
+        setting[i][1] = 1
+    for i in range(min_wc+1):
+        setting[1][i] = i
+    for i in range(2,m+1):
+        for j in range(2,min_wc+1):
+            setting[i][j] = 1 + setting[i-1][j-1] + setting[i][j-1]
+    return setting[m-1][min_wc-1] + 1
+
+print(num_of_wc_runs(100, 3))
+print(next_setting(100,3))
